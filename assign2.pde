@@ -28,7 +28,7 @@ void setup () {
   
   shipX = 580;
   shipY = 240;
-  enemyX = floor(random(600));
+  enemyX = 0;
   treasureX = floor(random(600));
   treasureY = floor(random(440));
   back1X = 0;
@@ -140,7 +140,14 @@ void draw() {
     }
 
 }
-
+ void mousePressed(){
+  shipX = 580;
+  shipY = 240;
+  enemyX = 0;
+  treasureX = floor(random(600));
+  treasureY = floor(random(440));
+  hpX = floor(random(190));
+ }
  void keyPressed(){
     if (key == CODED){
     println(keyCode);
