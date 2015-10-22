@@ -149,9 +149,9 @@ void draw() {
   hpX = floor(random(190));
  }
  void keyPressed(){
-    if (key == CODED){
+  /*  if (key == CODED){
     println(keyCode);
-  }
+  }*/
   
   if (key == CODED) { // detect special keys 
     switch (keyCode) {
