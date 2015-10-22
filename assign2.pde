@@ -114,22 +114,53 @@ void draw() {
         back2X = 640;
       }
       //hit enemy
-      if (enemyX >= shipX && enemyY >= shipY){  //up
+      if (enemyX >= shipX && enemyY >= shipY){         //up
          if(enemyY <= shipY+45 && enemyX <= shipX+45){
-          gameState = GAME_OVER;
+           hpX-=25;
         }
       }
       if (enemyX+45 >= shipX && enemyY+45 >= shipY){  //right
         if(enemyY+45 >= shipY && enemyY <= shipY){
-          gameState = GAME_OVER;
+          hpX-=25;
         }
       }
       if (enemyX >= shipX && enemyY <= shipY){  //bown
         if(enemyY+45 >= shipY && enemyX <= shipX+45){
-          gameState = GAME_OVER;
+          hpX-=25;
         }
       }
       
+      //eat treasure
+      if (treasureX >= shipX && treasureY <= shipY){  //up
+         if(treasureY <= shipY+45 && treasureX <= shipX+45){
+          hpX += 20;
+          hpX = floor(random(190));
+          treasureX = floor(random(600));
+          treasureY = floor(random(440));
+          image(treasure,treasureX,treasureY);
+        }
+      }
+      if (treasureX+20 >= shipX && treasureY+20 >= shipY){  //right
+        if(treasureY+20 >= shipY && treasureY <= shipY){
+          hpX += 20;
+          hpX = floor(random(190));
+          treasureX = floor(random(600));
+          treasureY = floor(random(440));
+          image(treasure,treasureX,treasureY);
+        }
+      }
+      if (treasureX >= shipX && treasureY <= shipY){  //bown
+        if(treasureY+20 >= shipY && treasureX <= shipX+45){
+          hpX += 20;
+          hpX = floor(random(190));
+          treasureX = floor(random(600));
+          treasureY = floor(random(440));
+          image(treasure,treasureX,treasureY);
+        }
+      }
+      if (hpX<=0){
+        gameState = GAME_OVER;
+      }
       break;
     // case GAME_WIN:
       // do something
