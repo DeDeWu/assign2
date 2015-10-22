@@ -98,7 +98,7 @@ void draw() {
       rect(20,0,hpX,20);
       image(hp,10,0);
       
-      enemyX += 2;
+      enemyX += 3;
       enemyX %=width;
       if (enemyX == 0){
         enemyY = floor(random(440));
@@ -114,21 +114,22 @@ void draw() {
         back2X = 640;
       }
       //hit enemy
-      if (enemyX+30 >= shipX ){
-        if (enemyY >= shipY && enemyY <= shipY+30){
-         // println(enemyX,enemyY,shipX,shipY);
+      if (enemyX >= shipX && enemyY >= shipY){  //up
+         if(enemyY <= shipY+45 && enemyX <= shipX+45){
           gameState = GAME_OVER;
-          
         }
       }
-      //eat treasure
-      if (treasureX+20 >= shipX ){
-        if (treasureY+20 >= shipY && treasureY <= shipX+30){
-          rect(20,0,hpX+20,20);
-          image(hp,10,0);
-          image(treasure,treasureX,treasureY);
+      if (enemyX+45 >= shipX && enemyY+45 >= shipY){  //right
+        if(enemyY+45 >= shipY && enemyY <= shipY){
+          gameState = GAME_OVER;
         }
       }
+      if (enemyX >= shipX && enemyY <= shipY){  //bown
+        if(enemyY+45 >= shipY && enemyX <= shipX+45){
+          gameState = GAME_OVER;
+        }
+      }
+      
       break;
     // case GAME_WIN:
       // do something
