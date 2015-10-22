@@ -8,7 +8,7 @@ int gameState;
 PImage start1, start2;
 PImage ship, enemy, hp, treasure, bg1, bg2;
 PImage end1, end2;
-int enemyX, treasureX,treasureY, back1X, back2X, hpX;
+int enemyX, enemyY, treasureX,treasureY, back1X, back2X, hpX;
 
 float shipX, shipY;
 float speed = 5;
@@ -29,6 +29,7 @@ void setup () {
   shipX = 580;
   shipY = 240;
   enemyX = 0;
+  enemyY = floor(random(440));
   treasureX = floor(random(600));
   treasureY = floor(random(440));
   back1X = 0;
@@ -91,7 +92,7 @@ void draw() {
       image(bg2,back2X,0);
       image(ship,shipX,shipY);
       image(treasure,treasureX,treasureY);
-      image(enemy,enemyX,treasureY);
+      image(enemy,enemyX,enemyY);
       
       fill(255,0,0);
       rect(20,0,hpX,20);
@@ -99,6 +100,10 @@ void draw() {
       
       enemyX += 2;
       enemyX %=width;
+      if (enemyX == 0){
+        enemyY = floor(random(440));
+      }
+      
       
       back1X -= 1;
       back2X -= 1;
@@ -109,16 +114,19 @@ void draw() {
         back2X = 640;
       }
       //hit enemy
-      if (enemyX >= shipX ){
-
+      if (enemyX+30 >= shipX ){
+        if (enemyY >= shipY && enemyY <= shipY+30){
+         // println(enemyX,enemyY,shipX,shipY);
           gameState = GAME_OVER;
-        
+          
+        }
       }
       //eat treasure
       if (treasureX+20 >= shipX ){
         if (treasureY+20 >= shipY && treasureY <= shipX+30){
           rect(20,0,hpX+20,20);
-          
+          image(hp,10,0);
+          image(treasure,treasureX,treasureY);
         }
       }
       break;
@@ -144,6 +152,7 @@ void draw() {
   shipX = 580;
   shipY = 240;
   enemyX = 0;
+  enemyY = floor(random(440));
   treasureX = floor(random(600));
   treasureY = floor(random(440));
   hpX = floor(random(190));
