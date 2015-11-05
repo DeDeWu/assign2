@@ -34,7 +34,7 @@ void setup () {
   treasureY = floor(random(440));
   back1X = 0;
   back2X = 640;
-  hpX = floor(random(190));
+  hpX = 40;
   ship = loadImage("img/fighter.png");
   bg1 = loadImage("img/bg1.png");
   bg2 = loadImage("img/bg2.png");
@@ -98,13 +98,14 @@ void draw() {
       rect(20,0,hpX,20);
       image(hp,10,0);
       
+      //enemy place
       enemyX += 3;
       enemyX %=width;
       if (enemyX == 0){
         enemyY = floor(random(440));
       }
       
-      
+      //background
       back1X -= 1;
       back2X -= 1;
       if(back1X == -640){
@@ -113,46 +114,61 @@ void draw() {
       if(back2X == -640){
         back2X = 640;
       }
+      
       //hit enemy
-      if (enemyX >= shipX && enemyY >= shipY){         //up
-         if(enemyY <= shipY+45 && enemyX <= shipX+45){
-           hpX-=25;
+      if (enemyX <= shipX && enemyX+60 >= shipX){         
+         if(enemyY <= shipY+45 && enemyY+60 >= shipY+45){
+           hpX-=40;
+           enemyX=0;
         }
       }
-      if (enemyX+45 >= shipX && enemyY+45 >= shipY){  //right
-        if(enemyY+45 >= shipY && enemyY <= shipY){
-          hpX-=25;
+      if (enemyX <= shipX && enemyX+60 >= shipX){  
+        if(enemyY <= shipY && enemyY+60 >= shipY){
+          hpX-=40;
+          enemyX=0;
         }
       }
-      if (enemyX >= shipX && enemyY <= shipY){  //bown
-        if(enemyY+45 >= shipY && enemyX <= shipX+45){
-          hpX-=25;
+      if (enemyX <= shipX+45 && enemyX+60 >= shipX+45){  
+        if(enemyY <= shipY+45 && enemyY+60 >= shipY+45){
+          hpX-=40;
+          enemyX=0;
+        }
+      }
+      if (enemyX <= shipX+45 && enemyX+60 >= shipX+45){ 
+        if(enemyY <= shipY && enemyY+60 >= shipY){
+          hpX-=40;
+          enemyX=0;
         }
       }
       
       //eat treasure
-      if (treasureX >= shipX && treasureY <= shipY){  //up
-         if(treasureY <= shipY+45 && treasureX <= shipX+45){
+      if (treasureX <= shipX && treasureX+40 >= shipX){  
+         if(treasureY <= shipY+45 && treasureY+40 >= shipY+45){
           hpX += 20;
-          hpX = floor(random(190));
           treasureX = floor(random(600));
           treasureY = floor(random(440));
           image(treasure,treasureX,treasureY);
         }
       }
-      if (treasureX+20 >= shipX && treasureY+20 >= shipY){  //right
-        if(treasureY+20 >= shipY && treasureY <= shipY){
+      if (treasureX <= shipX && treasureX+40 >= shipX){  
+         if(treasureY <= shipY && treasureY+40 >= shipY){
           hpX += 20;
-          hpX = floor(random(190));
           treasureX = floor(random(600));
           treasureY = floor(random(440));
           image(treasure,treasureX,treasureY);
         }
       }
-      if (treasureX >= shipX && treasureY <= shipY){  //bown
-        if(treasureY+20 >= shipY && treasureX <= shipX+45){
+      if (treasureX <= shipX+50 && treasureX+40 >= shipX+50){  //right
+        if(treasureY <= shipY+50 && treasureY+40 >= shipY+50){
           hpX += 20;
-          hpX = floor(random(190));
+          treasureX = floor(random(600));
+          treasureY = floor(random(440));
+          image(treasure,treasureX,treasureY);
+        }
+      }
+      if (treasureX <= shipX+50 && treasureX+40 >= shipX+50){  //bown
+        if(treasureY <= shipY && treasureY+40 >= shipY){
+          hpX += 20;
           treasureX = floor(random(600));
           treasureY = floor(random(440));
           image(treasure,treasureX,treasureY);
@@ -161,6 +177,10 @@ void draw() {
       if (hpX<=0){
         gameState = GAME_OVER;
       }
+      if (hpX>194){
+        hpX=194; 
+      }
+      
       break;
     // case GAME_WIN:
       // do something
@@ -172,6 +192,13 @@ void draw() {
         if (mouseX <= 425 && mouseY <= 345){
           image(end1,0,0);
           if (mousePressed){
+            shipX = 580;
+            shipY = 240;
+            enemyX = 0;
+            enemyY = floor(random(440));
+            treasureX = floor(random(600));
+            treasureY = floor(random(440));
+            hpX = 40;
             gameState = GAME_RUN;
           }
         } 
@@ -180,15 +207,6 @@ void draw() {
     }
 
 }
- void mousePressed(){
-  shipX = 580;
-  shipY = 240;
-  enemyX = 0;
-  enemyY = floor(random(440));
-  treasureX = floor(random(600));
-  treasureY = floor(random(440));
-  hpX = floor(random(190));
- }
  void keyPressed(){
   /*  if (key == CODED){
     println(keyCode);
