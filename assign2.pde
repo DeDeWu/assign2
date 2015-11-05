@@ -104,6 +104,11 @@ void draw() {
       if (enemyX == 0){
         enemyY = floor(random(440));
       }
+      if (shipY > enemyY){
+        enemyY+=2;
+      } else {
+        enemyY-=2;
+      }
       
       //background
       back1X -= 1;
